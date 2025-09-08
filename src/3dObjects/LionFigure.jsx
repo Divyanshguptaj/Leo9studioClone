@@ -1,40 +1,49 @@
-import React, { useRef, useEffect } from 'react';
-import { Canvas, useLoader } from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei';
-import { STLLoader } from 'three/examples/jsm/loaders/STLLoader';
+import React, { useLayoutEffect } from 'react';
+import { Canvas } from '@react-three/fiber';
+import { OrbitControls, Bounds, useGLTF } from '@react-three/drei';
+import * as THREE from 'three';
 
 const LionModel = () => {
-  const geom = useLoader(STLLoader, '/lion4.obj');
-  const meshRef = useRef();
+  // Use the dedicated useGLTF hook for .glb files
+  const { scene } = useGLTF('/octopus.glb');
 
-  useEffect(() => {
-    if (geom) {
-      geom.center();
+  // This effect runs after the model is loaded to override its materials.
+  useLayoutEffect(() => {
+    if (scene) {
+      // Create a new pink material. You can change the hex code to any color.
+      const pinkMaterial = new THREE.MeshStandardMaterial({
+        color: '#FF69B4', // A nice hot pink color
+        metalness: 0.3,
+        roughness: 0.6,
+      });
+
+      // Traverse the scene graph and apply the new material to every mesh.
+      scene.traverse((child) => {
+        if (child.isMesh) {
+          child.material = pinkMaterial;
+        }
+      });
     }
-  }, [geom]);
+  }, [scene]); // This ensures the effect runs when the scene is loaded.
 
   return (
-    <Canvas camera={{ position: [0, 0, 200], fov: 45 }}>
-      <ambientLight intensity={1.5} />
-      <directionalLight position={[10, 10, 10]} intensity={1} />
-      <pointLight position={[-10, -10, -10]} intensity={0.5} />
-      
-      {geom && (
-        <mesh 
-          ref={meshRef} 
-          geometry={geom}
-          rotation={[-Math.PI / 2, 0, 0]} 
-          scale={2.5}
-        >
-          <meshStandardMaterial color={'white'} metalness={0.5} roughness={0.6} />
-        </mesh>
-      )}
-
+    <Canvas>
+      <ambientLight intensity={2} />
+      <directionalLight position={[10, 10, 10]} intensity={1.2} />
+      <Bounds fit clip observe margin={1.2}>
+        {scene && (
+          <primitive 
+            object={scene}
+            // GLB files usually have the correct orientation. Resetting to a clean state.
+            rotation={[0, 0, 0]} 
+            scale={1.2} // Make the model smaller
+          />
+        )}
+      </Bounds>
       <OrbitControls 
-        enableZoom={false} 
-        enablePan={false} 
-        autoRotate 
-        autoRotateSpeed={1.0}
+        makeDefault
+        enableZoom={false}
+        enablePan={false}
       />
     </Canvas>
   );
