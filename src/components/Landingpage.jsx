@@ -1,4 +1,6 @@
+// filepath: c:\Users\lucky\Desktop\React\InternAssignments\leoClone\src\components\landingpage.jsx
 import React, { useEffect, useState } from 'react';
+import CircularText from '../3dObjects/CircularText'; // Import the new component
 
 const Leo9Homepage = () => {
   const [animatedNodes, setAnimatedNodes] = useState([]);
@@ -260,57 +262,60 @@ const Leo9Homepage = () => {
       <div className={`px-8 pb-16 transform transition-all duration-1000 ${isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`} 
            style={{ transitionDelay: '1500ms' }}>
         <div className="flex items-center justify-between">
-          <div className="text-gray-600 hover:text-black transition-colors duration-300 cursor-pointer">
+          {/* Static text */}
+          <div className="text-black hover:text-black transition-colors duration-300 cursor-pointer whitespace-nowrap">
             Your trusted UI UX design agency.
           </div>
           
-          {/* Client Logos with staggered animation */}
-          <div className="flex items-center space-x-12 opacity-60">
-            {[
-              { type: 'bmw', content: 'BMW' },
-              { type: 'text', content: 'SONY' },
-              { type: 'text', content: 'HUGGIES' },
-              { type: 'eton', content: 'ETON' },
-              { type: 'text', content: 'KIMIRICA' },
-              { type: 'text', content: 'INDIUM' }
-            ].map((client, index) => (
-              <div key={index} 
-                   className="transform transition-all duration-500 hover:scale-110 hover:opacity-100 cursor-pointer"
-                   style={{ 
-                     animationDelay: `${1600 + index * 100}ms`,
-                     animation: `fadeInUp 0.6s ease-out ${1600 + index * 100}ms both`
-                   }}>
-                {client.type === 'bmw' && (
-                  <div className="flex items-center space-x-2">
-                    <div className="w-8 h-8 bg-black rounded-full flex items-center justify-center">
-                      <span className="text-white text-xs font-bold">BMW</span>
+          {/* Separator line */}
+          <div className="border-r border-black h-10 px-5"></div>
+
+          
+          {/* Scrolling client logos */}
+          <div className="relative flex-1 overflow-hidden">
+            <div className="animate-marquee whitespace-nowrap">
+              {[
+                { type: 'bmw', content: 'BMW' },
+                { type: 'text', content: 'SONY' },
+                { type: 'text', content: 'HUGGIES' },
+                { type: 'eton', content: 'ETON' },
+                { type: 'text', content: 'KIMIRICA' },
+                { type: 'text', content: 'INDIUM' },
+                { type: 'bmw', content: 'BMW' },
+                { type: 'text', content: 'SONY' },
+                { type: 'text', content: 'HUGGIES' },
+                { type: 'eton', content: 'ETON' },
+                { type: 'text', content: 'KIMIRICA' },
+                { type: 'text', content: 'INDIUM' }
+              ].map((client, index) => (
+                <div key={index} className="text-black inline-block mx-8  hover:opacity-100 transition-opacity duration-300 cursor-pointer">
+                  {client.type === 'bmw' && (
+                    <div className="flex items-center space-x-2">
+                      <div className="w-8 h-8 bg-black rounded-full flex items-center justify-center">
+                        <span className="text-white text-xs font-bold">BMW</span>
+                      </div>
                     </div>
-                  </div>
-                )}
-                {client.type === 'text' && (
-                  <div className="text-2xl font-bold tracking-wider">{client.content}</div>
-                )}
-                {client.type === 'eton' && (
-                  <div className="flex items-center space-x-2">
-                    <div className="w-8 h-8 border border-gray-400 rounded-full flex items-center justify-center">
-                      <div className="w-3 h-3 bg-gray-400 rounded-full"></div>
+                  )}
+                  {client.type === 'text' && (
+                    <div className="text-black text-2xl font-bold tracking-wider">{client.content}</div>
+                  )}
+                  {client.type === 'eton' && (
+                    <div className="flex items-center space-x-2">
+                      <div className="w-8 h-8 border border-black rounded-full flex items-center justify-center">
+                        <div className="w-3 h-3 bg-black rounded-full"></div>
+                      </div>
+                      <span className="font-bold">ETON</span>
+                      <span className="text-xs text-black">SOLUTIONS</span>
                     </div>
-                    <span className="font-bold">ETON</span>
-                    <span className="text-xs text-gray-400">SOLUTIONS</span>
-                  </div>
-                )}
-              </div>
-            ))}
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
           
-          {/* Animated Lion Avatar */}
-          <div className={`w-16 h-16 rounded-full bg-gradient-to-br from-orange-400 to-red-500 flex items-center justify-center transform transition-all duration-500 hover:scale-110 cursor-pointer hover:rotate-12 ${isLoaded ? 'scale-100 opacity-100' : 'scale-0 opacity-0'}`}
-               style={{ 
-                 transitionDelay: '2200ms',
-                 animation: 'bounce 2s infinite 3s'
-               }}>
-            <div className="text-2xl animate-pulse">🦁</div>
-          </div>
+          {/* Replace the old block with the new component */}
+          <CircularText />
+
         </div>
       </div>
 
@@ -369,6 +374,7 @@ const Leo9Homepage = () => {
 
         .animate-marquee {
           animation: marquee 20s linear infinite;
+          display: inline-block;
         }
       `}</style>
     </div>
