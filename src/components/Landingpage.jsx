@@ -25,19 +25,19 @@ const Leo9Homepage = () => {
     const nodes = [];
     const colors = ["#ef4444", "#8b5cf6", "#3b82f6", "#000000"];
 
-    // Increased size and radius for a larger graph
-    const centerX = 300;
-    const centerY = 300;
-    const radius = 180;
+    // Scaled down size and radius for a more balanced graph
+    const centerX = 250;
+    const centerY = 250;
+    const radius = 150;
 
     // Center node
-    nodes.push({ x: centerX, y: centerY, color: "#000000", size: 8, delay: 0 }); // Made center node bigger
+    nodes.push({ x: centerX, y: centerY, color: "#000000", size: 8, delay: 0 });
 
     // Inner ring
     for (let i = 0; i < 6; i++) {
       const angle = (i * 60 * Math.PI) / 180;
-      const x = centerX + Math.cos(angle) * 75; // Increased radius
-      const y = centerY + Math.sin(angle) * 75; // Increased radius
+      const x = centerX + Math.cos(angle) * 62; // Scaled down radius
+      const y = centerY + Math.sin(angle) * 62; // Scaled down radius
       nodes.push({
         x,
         y,
@@ -51,8 +51,8 @@ const Leo9Homepage = () => {
     // Middle ring
     for (let i = 0; i < 12; i++) {
       const angle = (i * 30 * Math.PI) / 180;
-      const x = centerX + Math.cos(angle) * 135; // Increased radius
-      const y = centerY + Math.sin(angle) * 135; // Increased radius
+      const x = centerX + Math.cos(angle) * 112; // Scaled down radius
+      const y = centerY + Math.sin(angle) * 112; // Scaled down radius
       nodes.push({
         x,
         y,
@@ -172,7 +172,7 @@ const Leo9Homepage = () => {
       </header>
 
       {/* Main Content */}
-      <main className="flex items-center justify-between px-8 pt-[6%]">
+      <main className="flex items-center justify-between px-8 pt-[6%] pb-0">
         {/* Left Side - Network Visualization */}
         <div
           className={`flex-1 flex justify-center transform transition-all duration-1000 ${
@@ -181,14 +181,14 @@ const Leo9Homepage = () => {
           style={{ transitionDelay: "300ms" }}
         >
           <div
-            className="relative w-[600px] h-[600px]" // Increased container size
+            className="relative w-[450px] h-[450px]" // Reduced container size
             style={{
               transform: `translate(${mousePosition.x * 0.5}px, ${
                 mousePosition.y * 0.5
               }px)`,
             }}
           >
-            <svg width="600" height="600" className="absolute inset-0 h-full w-full">
+            <svg width="500" height="500" className="absolute inset-0 h-full w-full">
               {/* Background glow effect */}
               <defs>
                 <radialGradient id="nodeGlow" cx="50%" cy="50%" r="50%">
@@ -211,7 +211,7 @@ const Leo9Homepage = () => {
                     Math.pow(node.x - otherNode.x, 2) +
                       Math.pow(node.y - otherNode.y, 2)
                   );
-                  if (distance < 120) { // Increased distance check for lines
+                  if (distance < 100) { // Reduced distance check for lines
                     return (
                       <line
                         key={`${i}-${j}`}
@@ -295,8 +295,8 @@ const Leo9Homepage = () => {
           }`}
           style={{ transitionDelay: "500ms" }}
         >
-          <div className="space-y-6">
-            <h1 className="text-8xl font-bold leading-tight"> {/* Increased font size */}
+          <div className="space-y-4 text-left"> {/* Aligned text left and reduced spacing */}
+            <h1 className="text-[5.2rem] font-bold leading-none"> {/* Reduced line-height */}
               {["Design", "Transform", "Accelerate"].map((word, index) => (
                 <div
                   key={word}
@@ -314,7 +314,7 @@ const Leo9Homepage = () => {
             </h1>
 
             <p
-              className={`text-2xl text-gray-600 leading-relaxed transform transition-all duration-800 ${ // Increased font size
+              className={`text-xl text-gray-600 leading-relaxed transform transition-all duration-800 ${ // Reduced font size
                 isLoaded
                   ? "translate-y-0 opacity-100"
                   : "translate-y-10 opacity-0"
@@ -333,7 +333,7 @@ const Leo9Homepage = () => {
 
       {/* Bottom Section */}
       <div
-        className={`px-8 pb-16 transform transition-all duration-1000 ${
+        className={`px-8 pb-16 transform transition-all duration-1000 pt-0 ${
           isLoaded ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
         }`}
         style={{ transitionDelay: "1500ms" }}
