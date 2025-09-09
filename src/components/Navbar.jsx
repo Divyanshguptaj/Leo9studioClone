@@ -3,6 +3,7 @@ import { ArrowRight } from 'lucide-react';
 
 const Navbar = () => {
   const [openDropdown, setOpenDropdown] = useState(null);
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   const servicesData = [
     {
@@ -48,6 +49,10 @@ const Navbar = () => {
     setOpenDropdown(null);
   };
 
+  const toggleTheme = () => {
+    setIsDarkMode(!isDarkMode);
+  };
+
   return (
     <header 
       className={`bg-white border-b border-black fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
@@ -60,10 +65,11 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-20 relative">
           {/* Logo */}
           <a href="#" className="flex items-center gap-2.5 z-10">
-            <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center">
-              <span className="text-white font-bold text-xl">L9</span>
-            </div>
-            <span className="font-bold text-xl">leo9</span>
+            <img
+              src='/icon.png'
+              alt="Leo9 logo"
+              className="h-12 w-auto"
+            />
           </a>
 
           {/* Right side navigation */}
@@ -117,20 +123,40 @@ const Navbar = () => {
 
             {/* Theme Toggle */}
             <button
+              onClick={toggleTheme}
               aria-label="Toggle theme"
-              className="text-gray-800 hover:text-black transition-colors"
+              className="text-gray-800 hover:text-black transition-colors relative w-12 h-12 flex items-center justify-center"
             >
-              <svg className="w-12 h-12" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <circle cx="12" cy="12" r="3.5" strokeWidth="1.2" stroke="currentColor" fill="none" />
-              <circle cx="12" cy="4" r="0.4" fill="currentColor" />
-              <circle cx="12" cy="20" r="0.4" fill="currentColor" />
-              <circle cx="20" cy="12" r="0.4" fill="currentColor" />
-              <circle cx="4" cy="12" r="0.4" fill="currentColor" />
-              <circle cx="17.65" cy="6.35" r="0.4" fill="currentColor" />
-              <circle cx="6.35" cy="17.65" r="0.4" fill="currentColor" />
-              <circle cx="17.65" cy="17.65" r="0.4" fill="currentColor" />
-              <circle cx="6.35" cy="6.35" r="0.4" fill="currentColor" />
-            </svg>
+              {/* Sun SVG */}
+              <svg 
+                className={`absolute w-12 h-12 transition-all duration-500 ease-in-out ${
+                  isDarkMode ? 'opacity-0 rotate-90 scale-75' : 'opacity-100 rotate-0 scale-100'
+                }`} 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor"
+              >
+                <circle cx="12" cy="12" r="3.5" strokeWidth="1.2" stroke="currentColor" fill="none" />
+                <circle cx="12" cy="4" r="0.4" fill="currentColor" />
+                <circle cx="12" cy="20" r="0.4" fill="currentColor" />
+                <circle cx="20" cy="12" r="0.4" fill="currentColor" />
+                <circle cx="4" cy="12" r="0.4" fill="currentColor" />
+                <circle cx="17.65" cy="6.35" r="0.4" fill="currentColor" />
+                <circle cx="6.35" cy="17.65" r="0.4" fill="currentColor" />
+                <circle cx="17.65" cy="17.65" r="0.4" fill="currentColor" />
+                <circle cx="6.35" cy="6.35" r="0.4" fill="currentColor" />
+              </svg>
+
+              {/* Moon SVG (created from your image description) */}
+              <svg 
+                className={`absolute w-12 h-12 transition-all duration-500 ease-in-out ${
+                  isDarkMode ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 -rotate-90 scale-75'
+                }`}
+                viewBox="0 0 24 24" 
+                fill="currentColor"
+              >
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+              </svg>
             </button>
 
             {/* Contact Button */}

@@ -1,9 +1,9 @@
 // filepath: c:\Users\lucky\Desktop\React\InternAssignments\leoClone\src\components\landingpage.jsx
 import React, { useEffect, useState } from "react";
 import CircularText from "../3dObjects/CircularText"; // Import the new component
-import Navbar from "./Navbar";
 
-const Leo9Homepage = () => {
+// 1. Accept `theme` as a prop
+const Leo9Homepage = ({ theme }) => {
   const [animatedNodes, setAnimatedNodes] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -24,15 +24,17 @@ const Leo9Homepage = () => {
   // Generate network nodes with animation
   useEffect(() => {
     const nodes = [];
-    const colors = ["#ef4444", "#8b5cf6", "#3b82f6", "#000000"];
+    // 2. Define colors based on the theme
+    const colors =
+      theme === "dark"
+        ? ["#ef4444", "#8b5cf6", "#3b82f6", "#ffffff"]
+        : ["#ef4444", "#8b5cf6", "#3b82f6", "#000000"];
 
-    // Scaled down size and radius for a more balanced graph
     const centerX = 250;
     const centerY = 250;
     const radius = 150;
 
-    // Center node
-    nodes.push({ x: centerX, y: centerY, color: "#000000", size: 8, delay: 0 });
+    nodes.push({ x: centerX, y: centerY, color: colors[3], size: 8, delay: 0 });
 
     // Inner ring
     for (let i = 0; i < 6; i++) {
@@ -42,7 +44,7 @@ const Leo9Homepage = () => {
       nodes.push({
         x,
         y,
-        color: colors[Math.floor(Math.random() * colors.length)],
+        color: colors[Math.floor(Math.random() * 3)],
         size: 5, // Increased size
         delay: i * 100,
         ring: "inner",
@@ -57,7 +59,7 @@ const Leo9Homepage = () => {
       nodes.push({
         x,
         y,
-        color: colors[Math.floor(Math.random() * colors.length)],
+        color: colors[Math.floor(Math.random() * 3)],
         size: 5, // Increased size
         delay: i * 50 + 600,
         ring: "middle",
@@ -72,7 +74,7 @@ const Leo9Homepage = () => {
       nodes.push({
         x,
         y,
-        color: colors[Math.floor(Math.random() * colors.length)],
+        color: colors[Math.floor(Math.random() * 3)],
         size: 5, // Increased size
         delay: i * 30 + 1200,
         ring: "outer",
@@ -83,19 +85,32 @@ const Leo9Homepage = () => {
 
     // Trigger load animation
     setTimeout(() => setIsLoaded(true), 100);
-  }, []);
+  }, [theme]); // Rerun effect when theme changes
 
   return (
-    <div className="min-h-screen bg-gray-50 overflow-hidden">
-      {/* Animated background elements */}
+    // 3. Apply conditional classes for background and text
+    <div
+      className={`min-h-screen overflow-hidden ${
+        theme === "dark" ? "bg-black text-gray-200" : "bg-gray-50 text-gray-800"
+      }`}
+    >
+      {/* 4. Animated background elements now adapt to the theme */}
       <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute top-10 left-10 w-32 h-32 bg-blue-100 rounded-full opacity-20 animate-pulse"></div>
         <div
-          className="absolute top-1/3 right-20 w-24 h-24 bg-purple-100 rounded-full opacity-30 animate-bounce"
+          className={`absolute top-10 left-10 w-32 h-32 ${
+            theme === "dark" ? "bg-blue-900" : "bg-blue-100"
+          } rounded-full opacity-20 animate-pulse`}
+        ></div>
+        <div
+          className={`absolute top-1/3 right-20 w-24 h-24 ${
+            theme === "dark" ? "bg-purple-900" : "bg-purple-100"
+          } rounded-full opacity-30 animate-bounce`}
           style={{ animationDuration: "3s" }}
         ></div>
         <div
-          className="absolute bottom-20 left-1/4 w-20 h-20 bg-red-100 rounded-full opacity-25 animate-ping"
+          className={`absolute bottom-20 left-1/4 w-20 h-20 ${
+            theme === "dark" ? "bg-red-900" : "bg-red-100"
+          } rounded-full opacity-25 animate-ping`}
           style={{ animationDuration: "4s" }}
         ></div>
       </div>
@@ -140,7 +155,7 @@ const Leo9Homepage = () => {
                     Math.pow(node.x - otherNode.x, 2) +
                       Math.pow(node.y - otherNode.y, 2)
                   );
-                  if (distance < 100) { // Reduced distance check for lines
+                  if (distance < 100) {
                     return (
                       <line
                         key={`${i}-${j}`}
@@ -148,7 +163,12 @@ const Leo9Homepage = () => {
                         y1={node.y}
                         x2={otherNode.x}
                         y2={otherNode.y}
-                        stroke="#5e646dff"
+                        // 5. Line color adapts to theme
+                        stroke={
+                          theme === "dark"
+                            ? "rgba(255, 255, 255, 0.2)"
+                            : "#5e646dff"
+                        }
                         strokeWidth="1"
                         strokeDasharray="2,2"
                         opacity="0"
@@ -166,7 +186,7 @@ const Leo9Homepage = () => {
                 })
               )}
 
-              {/* Animated nodes */}
+              {/* Animated nodes (no changes needed here) */}
               {animatedNodes.map((node, i) => (
                 <g key={i}>
                   {/* Glow effect */}
@@ -224,8 +244,8 @@ const Leo9Homepage = () => {
           }`}
           style={{ transitionDelay: "500ms" }}
         >
-          <div className="space-y-4 text-left"> {/* Aligned text left and reduced spacing */}
-            <h1 className="text-[5.2rem] font-bold leading-none"> {/* Reduced line-height */}
+          <div className="space-y-4 text-left">
+            <h1 className="text-[5.2rem] font-bold leading-none">
               {["Design", "Transform", "Accelerate"].map((word, index) => (
                 <div
                   key={word}
@@ -241,19 +261,19 @@ const Leo9Homepage = () => {
                 </div>
               ))}
             </h1>
-
             <p
-              className={`text-xl text-gray-600 leading-relaxed transform transition-all duration-800 ${ // Reduced font size
-                isLoaded
-                  ? "translate-y-0 opacity-100"
-                  : "translate-y-10 opacity-0"
+              // 6. Paragraph text color adapts to theme
+              className={`text-xl ${
+                theme === "dark" ? "text-gray-400" : "text-gray-600"
+              } leading-relaxed transform transition-all duration-800 ${
+                isLoaded ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
               }`}
               style={{ transitionDelay: "1300ms" }}
             >
-              Redefining user experiences through
-              <br />
+              Redefining user experiences through <br />
               <span className="font-semibold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Behavioural Science & AI
+                {" "}
+                Behavioural Science & AI{" "}
               </span>
             </p>
           </div>
@@ -268,15 +288,15 @@ const Leo9Homepage = () => {
         style={{ transitionDelay: "1500ms" }}
       >
         <div className="flex items-center justify-between">
-          {/* Static text */}
-          <div className="text-black hover:text-black transition-colors duration-300 cursor-pointer whitespace-nowrap">
+          {/* 7. Text and border colors adapt to theme */}
+          <div className="hover:opacity-80 transition-opacity duration-300 cursor-pointer whitespace-nowrap">
             Your trusted UI UX design agency.
           </div>
-
-          {/* Separator line */}
-          <div className="border-r border-black h-10 px-5"></div>
-
-          {/* Scrolling client logos */}
+          <div
+            className={`border-r ${
+              theme === "dark" ? "border-gray-600" : "border-black"
+            } h-10 px-5`}
+          ></div>
           <div className="relative flex-1 overflow-hidden">
             <div className="animate-marquee whitespace-nowrap">
               {[
@@ -295,42 +315,44 @@ const Leo9Homepage = () => {
               ].map((client, index) => (
                 <div
                   key={index}
-                  className="text-black inline-block mx-8  hover:opacity-100 transition-opacity duration-300 cursor-pointer"
+                  className="inline-block mx-8 hover:opacity-80 transition-opacity duration-300 cursor-pointer"
                 >
                   {client.type === "bmw" && (
                     <div className="flex items-center space-x-2">
-                      <div className="w-8 h-8 bg-black rounded-full flex items-center justify-center">
-                        <span className="text-white text-xs font-bold">
+                      <div className="w-8 h-8 bg-current rounded-full flex items-center justify-center">
+                        <span
+                          className={`${
+                            theme === "dark" ? "text-black" : "text-white"
+                          } text-xs font-bold`}
+                        >
                           BMW
                         </span>
                       </div>
                     </div>
                   )}
                   {client.type === "text" && (
-                    <div className="text-black text-2xl font-bold tracking-wider">
+                    <div className="text-2xl font-bold tracking-wider">
                       {client.content}
                     </div>
                   )}
                   {client.type === "eton" && (
                     <div className="flex items-center space-x-2">
-                      <div className="w-8 h-8 border border-black rounded-full flex items-center justify-center">
-                        <div className="w-3 h-3 bg-black rounded-full"></div>
+                      <div className="w-8 h-8 border border-current rounded-full flex items-center justify-center">
+                        <div className="w-3 h-3 bg-current rounded-full"></div>
                       </div>
                       <span className="font-bold">ETON</span>
-                      <span className="text-xs text-black">SOLUTIONS</span>
+                      <span className="text-xs">SOLUTIONS</span>
                     </div>
                   )}
                 </div>
               ))}
             </div>
           </div>
-
-          {/* Replace the old block with the new component */}
           <CircularText />
         </div>
       </div>
 
-      {/* Custom CSS animations */}
+      {/* Custom CSS animations (no changes needed here) */}
       <style>{`
         @keyframes fadeInScale {
           0% {
@@ -366,7 +388,8 @@ const Leo9Homepage = () => {
         }
 
         @keyframes float {
-          0%, 100% {
+          0%,
+          100% {
             transform: translateY(0px);
           }
           50% {
