@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Navbar from './components/Navbar';
-import Leo9Homepage from './components/landingpage';
+import Leo9Homepage from './components/Landingpage';
 import './App.css'
 
 const App = () => {
