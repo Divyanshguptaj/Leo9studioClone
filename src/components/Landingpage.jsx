@@ -1,8 +1,6 @@
-// filepath: c:\Users\lucky\Desktop\React\InternAssignments\leoClone\src\components\landingpage.jsx
 import React, { useEffect, useState } from "react";
-import CircularText from "../3dObjects/CircularText"; // Import the new component
+import CircularText from "../3dObjects/CircularText";
 
-// 1. Accept `theme` as a prop
 const Leo9Homepage = ({ theme }) => {
   const [animatedNodes, setAnimatedNodes] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -24,11 +22,10 @@ const Leo9Homepage = ({ theme }) => {
   // Generate network nodes with animation
   useEffect(() => {
     const nodes = [];
-    // 2. Define colors based on the theme
-    const colors =
-      theme === "dark"
-        ? ["#ef4444", "#8b5cf6", "#3b82f6", "#ffffff"]
-        : ["#ef4444", "#8b5cf6", "#3b82f6", "#000000"];
+    // 1. Define colors based on the theme
+    const colors = theme === 'dark'
+      ? ["#ef4444", "#8b5cf6", "#3b82f6", "#ffffff"]
+      : ["#ef4444", "#8b5cf6", "#3b82f6", "#000000"];
 
     const centerX = 250;
     const centerY = 250;
@@ -82,37 +79,17 @@ const Leo9Homepage = ({ theme }) => {
     }
 
     setAnimatedNodes(nodes);
-
-    // Trigger load animation
     setTimeout(() => setIsLoaded(true), 100);
   }, [theme]); // Rerun effect when theme changes
 
   return (
-    // 3. Apply conditional classes for background and text
-    <div
-      className={`min-h-screen overflow-hidden ${
-        theme === "dark" ? "bg-black text-gray-200" : "bg-gray-50 text-gray-800"
-      }`}
-    >
-      {/* 4. Animated background elements now adapt to the theme */}
+    // 2. Apply conditional classes for background and text
+    <div className={`min-h-screen overflow-hidden ${theme === 'dark' ? 'bg-black text-gray-200' : 'bg-gray-50 text-gray-800'}`}>
+      {/* 3. Animated background elements now adapt to the theme */}
       <div className="fixed inset-0 pointer-events-none">
-        <div
-          className={`absolute top-10 left-10 w-32 h-32 ${
-            theme === "dark" ? "bg-blue-900" : "bg-blue-100"
-          } rounded-full opacity-20 animate-pulse`}
-        ></div>
-        <div
-          className={`absolute top-1/3 right-20 w-24 h-24 ${
-            theme === "dark" ? "bg-purple-900" : "bg-purple-100"
-          } rounded-full opacity-30 animate-bounce`}
-          style={{ animationDuration: "3s" }}
-        ></div>
-        <div
-          className={`absolute bottom-20 left-1/4 w-20 h-20 ${
-            theme === "dark" ? "bg-red-900" : "bg-red-100"
-          } rounded-full opacity-25 animate-ping`}
-          style={{ animationDuration: "4s" }}
-        ></div>
+        <div className={`absolute top-10 left-10 w-32 h-32 ${theme === 'dark' ? 'bg-blue-900' : 'bg-blue-100'} rounded-full opacity-20 animate-pulse`}></div>
+        <div className={`absolute top-1/3 right-20 w-24 h-24 ${theme === 'dark' ? 'bg-purple-900' : 'bg-purple-100'} rounded-full opacity-30 animate-bounce`} style={{ animationDuration: "3s" }}></div>
+        <div className={`absolute bottom-20 left-1/4 w-20 h-20 ${theme === 'dark' ? 'bg-red-900' : 'bg-red-100'} rounded-full opacity-25 animate-ping`} style={{ animationDuration: "4s" }}></div>
       </div>
 
       {/* Main Content */}
@@ -159,26 +136,11 @@ const Leo9Homepage = ({ theme }) => {
                     return (
                       <line
                         key={`${i}-${j}`}
-                        x1={node.x}
-                        y1={node.y}
-                        x2={otherNode.x}
-                        y2={otherNode.y}
-                        // 5. Line color adapts to theme
-                        stroke={
-                          theme === "dark"
-                            ? "rgba(255, 255, 255, 0.2)"
-                            : "#5e646dff"
-                        }
-                        strokeWidth="1"
-                        strokeDasharray="2,2"
-                        opacity="0"
-                        className="animate-pulse"
-                        style={{
-                          animationDelay: `${
-                            (node.delay + otherNode.delay) / 2
-                          }ms`,
-                          animationDuration: "3s",
-                        }}
+                        x1={node.x} y1={node.y}
+                        x2={otherNode.x} y2={otherNode.y}
+                        stroke={theme === 'dark' ? 'rgba(207, 190, 190, 1)' : 'rgba(0, 0, 0, 0.5)'}
+                        strokeWidth="1" strokeDasharray="2,2" opacity="0" className="animate-pulse"
+                        style={{ animationDelay: `${(node.delay + otherNode.delay) / 2}ms`, animationDuration: "3s" }}
                       />
                     );
                   }
@@ -262,12 +224,8 @@ const Leo9Homepage = ({ theme }) => {
               ))}
             </h1>
             <p
-              // 6. Paragraph text color adapts to theme
-              className={`text-xl ${
-                theme === "dark" ? "text-gray-400" : "text-gray-600"
-              } leading-relaxed transform transition-all duration-800 ${
-                isLoaded ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-              }`}
+              // 5. Paragraph text color adapts to theme
+              className={`text-xl ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'} leading-relaxed transform transition-all duration-800 ${isLoaded ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}
               style={{ transitionDelay: "1300ms" }}
             >
               Redefining user experiences through <br />
@@ -288,62 +246,16 @@ const Leo9Homepage = ({ theme }) => {
         style={{ transitionDelay: "1500ms" }}
       >
         <div className="flex items-center justify-between">
-          {/* 7. Text and border colors adapt to theme */}
-          <div className="hover:opacity-80 transition-opacity duration-300 cursor-pointer whitespace-nowrap">
-            Your trusted UI UX design agency.
-          </div>
-          <div
-            className={`border-r ${
-              theme === "dark" ? "border-gray-600" : "border-black"
-            } h-10 px-5`}
-          ></div>
+          {/* 6. Text and border colors adapt to theme */}
+          <div className="hover:opacity-80 transition-opacity duration-300 cursor-pointer whitespace-nowrap"> Your trusted UI UX design agency. </div>
+          <div className={`border-r ${theme === 'dark' ? 'border-gray-600' : 'border-black'} h-10 px-5`}></div>
           <div className="relative flex-1 overflow-hidden">
             <div className="animate-marquee whitespace-nowrap">
-              {[
-                { type: "bmw", content: "BMW" },
-                { type: "text", content: "SONY" },
-                { type: "text", content: "HUGGIES" },
-                { type: "eton", content: "ETON" },
-                { type: "text", content: "KIMIRICA" },
-                { type: "text", content: "INDIUM" },
-                { type: "bmw", content: "BMW" },
-                { type: "text", content: "SONY" },
-                { type: "text", content: "HUGGIES" },
-                { type: "eton", content: "ETON" },
-                { type: "text", content: "KIMIRICA" },
-                { type: "text", content: "INDIUM" },
-              ].map((client, index) => (
-                <div
-                  key={index}
-                  className="inline-block mx-8 hover:opacity-80 transition-opacity duration-300 cursor-pointer"
-                >
-                  {client.type === "bmw" && (
-                    <div className="flex items-center space-x-2">
-                      <div className="w-8 h-8 bg-current rounded-full flex items-center justify-center">
-                        <span
-                          className={`${
-                            theme === "dark" ? "text-black" : "text-white"
-                          } text-xs font-bold`}
-                        >
-                          BMW
-                        </span>
-                      </div>
-                    </div>
-                  )}
-                  {client.type === "text" && (
-                    <div className="text-2xl font-bold tracking-wider">
-                      {client.content}
-                    </div>
-                  )}
-                  {client.type === "eton" && (
-                    <div className="flex items-center space-x-2">
-                      <div className="w-8 h-8 border border-current rounded-full flex items-center justify-center">
-                        <div className="w-3 h-3 bg-current rounded-full"></div>
-                      </div>
-                      <span className="font-bold">ETON</span>
-                      <span className="text-xs">SOLUTIONS</span>
-                    </div>
-                  )}
+              {[ { type: "bmw", content: "BMW" }, { type: "text", content: "SONY" }, { type: "text", content: "HUGGIES" }, { type: "eton", content: "ETON" }, { type: "text", content: "KIMIRICA" }, { type: "text", content: "INDIUM" }, { type: "bmw", content: "BMW" }, { type: "text", content: "SONY" }, { type: "text", content: "HUGGIES" }, { type: "eton", content: "ETON" }, { type: "text", content: "KIMIRICA" }, { type: "text", content: "INDIUM" }, ].map((client, index) => (
+                <div key={index} className="inline-block mx-8 hover:opacity-80 transition-opacity duration-300 cursor-pointer">
+                  {client.type === "bmw" && ( <div className="flex items-center space-x-2"> <div className="w-8 h-8 bg-current rounded-full flex items-center justify-center"> <span className={`${theme === 'dark' ? 'text-black' : 'text-white'} text-xs font-bold`}> BMW </span> </div> </div> )}
+                  {client.type === "text" && ( <div className="text-2xl font-bold tracking-wider"> {client.content} </div> )}
+                  {client.type === "eton" && ( <div className="flex items-center space-x-2"> <div className="w-8 h-8 border border-current rounded-full flex items-center justify-center"> <div className="w-3 h-3 bg-current rounded-full"></div> </div> <span className="font-bold">ETON</span> <span className="text-xs">SOLUTIONS</span> </div> )}
                 </div>
               ))}
             </div>

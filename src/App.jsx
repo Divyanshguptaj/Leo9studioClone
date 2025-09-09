@@ -1,25 +1,18 @@
-import React, { useState } from "react";
-import "./App.css";
-import Navbar from './components/Navbar'
-import Leo9Homepage from "./components/landingpage";
-// import Hero from './components/Hero'
+import React, { useState } from 'react';
+import Navbar from './components/Navbar';
+import Leo9Homepage from './components/landingpage';
+import './App.css'
 
-function App() {
-  // 'light' or 'dark'
-  const [theme, setTheme] = useState('light'); 
-
-  const toggleTheme = () => {
-    setTheme(prevTheme => (prevTheme === 'light' ? 'dark' : 'light'));
-  };
+const App = () => {
+  const [theme, setTheme] = useState('light');
+  const toggleTheme = () => setTheme(t => (t === 'light' ? 'dark' : 'light'));
 
   return (
-    <div>
-      <Navbar toggleTheme={toggleTheme} />
+    <>
+      <Navbar theme={theme} toggleTheme={toggleTheme} />
       <Leo9Homepage theme={theme} />
-      {/* <Navbar/> */}
-      {/* <Hero/> */}
-    </div>
+    </>
   );
-}
+};
 
 export default App;

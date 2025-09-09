@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 
-const Navbar = () => {
+// 1. Accept `theme` and `toggleTheme` as props
+const Navbar = ({ theme, toggleTheme }) => {
   const [openDropdown, setOpenDropdown] = useState(null);
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  // 2. Removed the local `isDarkMode` state and local `toggleTheme` function
 
   const servicesData = [
     {
@@ -47,10 +48,6 @@ const Navbar = () => {
 
   const handleMouseLeave = () => {
     setOpenDropdown(null);
-  };
-
-  const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode);
   };
 
   return (
@@ -123,14 +120,15 @@ const Navbar = () => {
 
             {/* Theme Toggle */}
             <button
-              onClick={toggleTheme}
+              onClick={toggleTheme} // This now correctly calls the function from App.jsx
               aria-label="Toggle theme"
               className="text-gray-800 hover:text-black transition-colors relative w-12 h-12 flex items-center justify-center"
             >
               {/* Sun SVG */}
               <svg 
                 className={`absolute w-12 h-12 transition-all duration-500 ease-in-out ${
-                  isDarkMode ? 'opacity-0 rotate-90 scale-75' : 'opacity-100 rotate-0 scale-100'
+                  // 3. Use the `theme` prop instead of `isDarkMode`
+                  theme === 'light' ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 rotate-90 scale-75'
                 }`} 
                 viewBox="0 0 24 24" 
                 fill="none" 
@@ -150,7 +148,8 @@ const Navbar = () => {
               {/* Moon SVG (created from your image description) */}
               <svg 
                 className={`absolute w-12 h-12 transition-all duration-500 ease-in-out ${
-                  isDarkMode ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 -rotate-90 scale-75'
+                  // 3. Use the `theme` prop instead of `isDarkMode`
+                  theme === 'dark' ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 -rotate-90 scale-75'
                 }`}
                 viewBox="0 0 24 24" 
                 fill="currentColor"
