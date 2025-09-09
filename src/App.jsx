@@ -7,6 +7,7 @@ import Leo9Homepage from "./components/landingpage";
 function App() {
   return (
     <div>
+      <Navbar/>
       <Leo9Homepage/>
       {/* <Navbar/> */}
       {/* <Hero/> */}

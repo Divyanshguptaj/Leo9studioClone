@@ -1,6 +1,7 @@
 // filepath: c:\Users\lucky\Desktop\React\InternAssignments\leoClone\src\components\landingpage.jsx
 import React, { useEffect, useState } from "react";
 import CircularText from "../3dObjects/CircularText"; // Import the new component
+import Navbar from "./Navbar";
 
 const Leo9Homepage = () => {
   const [animatedNodes, setAnimatedNodes] = useState([]);
@@ -98,78 +99,6 @@ const Leo9Homepage = () => {
           style={{ animationDuration: "4s" }}
         ></div>
       </div>
-
-      {/* Header */}
-      <header
-        className={`fixed top-0 left-0 w-full z-50 flex items-center justify-between px-8 py-6 bg-white shadow-md transform transition-all duration-1000 border-b border-black ${
-          isLoaded ? "translate-y-0 opacity-100" : "-translate-y-10 opacity-0"
-        }`}
-      >
-        <div className="sticky flex items-center space-x-2 group cursor-pointer">
-          <div className="w-10 h-10 bg-black rounded-full flex items-center justify-center transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-12">
-            <svg
-              viewBox="0 0 24 24"
-              className="w-6 h-6 text-white fill-current transition-transform duration-300 group-hover:scale-110"
-            >
-              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-            </svg>
-          </div>
-          <span className="text-2xl font-bold text-black transition-all duration-300 group-hover:text-blue-600">
-            leo9
-          </span>
-        </div>
-
-        <nav className="flex items-center space-x-8">
-          {["Work", "Services", "Clients", "About", "Knowledge"].map(
-            (item, index) => (
-              <div
-                key={item}
-                className={`transform transition-all duration-500 ${
-                  isLoaded
-                    ? "translate-y-0 opacity-100"
-                    : "-translate-y-5 opacity-0"
-                }`}
-                style={{ transitionDelay: `${200 + index * 100}ms` }}
-              >
-                <a
-                  href="#"
-                  className="text-gray-800 hover:text-black font-medium relative group transition-colors duration-300"
-                >
-                  {item}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-black transition-all duration-300 group-hover:w-full"></span>
-                  {(item === "Services" || item === "About") && (
-                    <span className="text-gray-400 ml-1">•</span>
-                  )}
-                </a>
-              </div>
-            )
-          )}
-
-          <div
-            className={`flex items-center space-x-2 transform transition-all duration-500 ${
-              isLoaded
-                ? "translate-y-0 opacity-100"
-                : "-translate-y-5 opacity-0"
-            }`}
-            style={{ transitionDelay: "700ms" }}
-          >
-            <div className="w-8 h-8 border-2 border-gray-300 rounded-full flex items-center justify-center hover:border-black transition-colors duration-300 hover:scale-110 transform">
-              <div className="w-2 h-2 bg-gray-400 rounded-full hover:bg-black transition-colors duration-300"></div>
-            </div>
-          </div>
-
-          <button
-            className={`bg-black text-white px-6 py-3 rounded-lg font-medium hover:bg-gray-800 transition-all duration-300 hover:scale-105 hover:shadow-lg transform ${
-              isLoaded
-                ? "translate-y-0 opacity-100"
-                : "-translate-y-5 opacity-0"
-            }`}
-            style={{ transitionDelay: "800ms" }}
-          >
-            Contact
-          </button>
-        </nav>
-      </header>
 
       {/* Main Content */}
       <main className="flex items-center justify-between px-8 pt-[6%] pb-0">

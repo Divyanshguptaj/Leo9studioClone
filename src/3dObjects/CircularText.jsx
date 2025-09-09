@@ -1,11 +1,44 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import LionModel from '../3dObjects/LionFigure';
 
 const CircularText = () => {
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+const containerRef = useRef(null);
+
+useEffect(() => {
+  const handleGlobalMouseMove = (e) => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    const distance = Math.sqrt(
+      Math.pow(e.clientX - centerX, 2) + Math.pow(e.clientY - centerY, 2)
+    );
+    const activationRadius = 200;
+    if (distance < activationRadius) {
+      const moveX = (e.clientX - centerX) * 0.1;
+      const moveY = (e.clientY - centerY) * 0.1;
+      const maxMove = 15;
+      const clampedX = Math.max(-maxMove, Math.min(maxMove, moveX));
+      const clampedY = Math.max(-maxMove, Math.min(maxMove, moveY));
+      setPosition({ x: clampedX, y: clampedY });
+    } else {
+      setPosition({ x: 0, y: 0 });
+    }
+  };
+  window.addEventListener('mousemove', handleGlobalMouseMove);
+  return () => {
+    window.removeEventListener('mousemove', handleGlobalMouseMove);
+  };
+}, []);
+
   return (
     <div
+      ref={containerRef}
       className="relative flex items-center justify-center"
-      style={{ width: 160, height: 160 }} // smaller container
+      style={{ width: 160, height: 160,transform: `translate(${position.x}px, ${position.y}px)`,
+    transition: 'transform 0.1s ease-out',
+ }} // smaller container
     >
       {/* Center black circle with 3D model */}
       <div
