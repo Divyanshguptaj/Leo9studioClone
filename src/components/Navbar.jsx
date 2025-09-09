@@ -4,7 +4,7 @@ import { ArrowRight } from 'lucide-react';
 // 1. Accept `theme` and `toggleTheme` as props
 const Navbar = ({ theme, toggleTheme }) => {
   const [openDropdown, setOpenDropdown] = useState(null);
-  // 2. Removed the local `isDarkMode` state and local `toggleTheme` function
+  const [isHoveringContact, setIsHoveringContact] = useState(false);
 
   const servicesData = [
     {
@@ -158,9 +158,22 @@ const Navbar = ({ theme, toggleTheme }) => {
               </svg>
             </button>
 
-            {/* Contact Button */}
-            <button className="bg-black text-white px-12 py-3 rounded-sm font-semibold text-base hover:bg-gray-800 transition-colors">
-              Contact
+            {/* Contact Button with hover effect */}
+            <button 
+              className="bg-black text-white px-12 py-3 rounded-sm font-semibold text-base transition-colors relative overflow-hidden"
+              onMouseEnter={() => setIsHoveringContact(true)}
+              onMouseLeave={() => setIsHoveringContact(false)}
+            >
+              <div className="relative h-6 overflow-hidden">
+                {/* Original "Contact" text */}
+                <div className={`transition-transform duration-300 ${isHoveringContact ? '-translate-y-full' : 'translate-y-0'}`}>
+                  Contact
+                </div>
+                {/* New text that slides up from bottom */}
+                <div className={`absolute top-0 left-0 w-full transition-transform duration-300 ${isHoveringContact ? 'translate-y-0' : 'translate-y-full'}`}>
+                  Contact
+                </div>
+              </div>
             </button>
           </div>
         </div>
